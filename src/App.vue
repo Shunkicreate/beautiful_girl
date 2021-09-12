@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">美女検索</router-link> |
+    <router-link to="/about">関連画像検索</router-link>
   </div>
   <router-view/>
 </template>
@@ -28,3 +28,13 @@
   }
 }
 </style>
+
+<script>
+// import { defineComponent } from '@vue/composition-api'
+// export default defineComponent({
+//   // setup() {
+    
+//   // },
+// })
+</script>
+
