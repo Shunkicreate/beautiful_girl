@@ -18,21 +18,21 @@ const routes: Array<RouteRecordRaw> = [
   //     }
   //   ]
   },
-  {
-    path: '/beautiful_girl',
-    name: 'Home2',
-    component: Home2,
-  //   children: [
-  //     {
-  //       path:'/',
-  //       component:Home2,
-  //     },
-  //     {
-  //       path:'/about',
-  //       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //     }
-  //   ]
-  },
+  // {
+  //   path: '/beautiful_girl',
+  //   name: 'Home2',
+  //   component: Home2,
+  // //   children: [
+  // //     {
+  // //       path:'/',
+  // //       component:Home2,
+  // //     },
+  // //     {
+  // //       path:'/about',
+  // //       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // //     }
+  // //   ]
+  // },
   {
     path: '/about',
     name: 'About',
