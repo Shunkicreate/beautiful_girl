@@ -5,6 +5,7 @@
  */
 module.exports = {
   // options...
+  publicPath: '/beautiful_girl',
   devServer: {
     proxy: {
       "/url/": {
