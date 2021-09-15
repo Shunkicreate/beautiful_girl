@@ -3,6 +3,7 @@
     <router-link to="/">美女検索</router-link> |
     <router-link to="/about">関連画像検索</router-link>
   </div>
+
   <router-view/>
 </template>
 
@@ -39,5 +40,7 @@
 // なんとなくここにgithubへのデプロイ方法をメモっとく
 // yarn build
 // yarn deploy
+
+//ノートパソコンから入ったでー
 </script>
 
