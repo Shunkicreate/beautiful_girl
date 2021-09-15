@@ -36,5 +36,8 @@
     
 //   // },
 // })
+// なんとなくここにgithubへのデプロイ方法をメモっとく
+// yarn build
+// yarn deploy
 </script>
 
