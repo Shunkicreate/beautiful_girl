@@ -32,6 +32,7 @@
             :disabled="girl_search.buttonstate"
           >
             {{ girl_search.searching }}
+            
           </button>
         </div>
       </div>
