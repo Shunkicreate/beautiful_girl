@@ -19,6 +19,13 @@
             v-bind:src="imgs[num % 2]"
           />
         </div>
+        <div class="col-4 align-self-left">
+          <img
+            alt="Vue logo"
+            class="img-fluid d-block mx-auto"
+            v-bind:src="img_url.data"
+          />
+        </div>
         <div class="col-4 align-self-end">
           <h1>こちらは美女を検索することのできるページです．</h1>
         </div>
@@ -36,6 +43,7 @@
             type="button"
             class="btn btn-outline-secondary"
             @click="num++"
+            v-bind:disabled="buttonstate"
           >
             検索
           </button>
@@ -49,6 +57,9 @@
         >
           axios
         </button>
+        <div>
+        {{img_url}}
+        </div>
       </div>
     </div>
   </div>
@@ -70,9 +81,10 @@ export default defineComponent({
     };
     const num = ref(0);
     const imgs = reactive({
-      0: "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg",
+      0: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg&s",
       1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_SqPTzj0qk7nQI8NXHMOILGHLvSJrytRXw&usqp=CAU",
     });
+    const buttonstate=ref(true)
 
 
 
@@ -92,6 +104,13 @@ export default defineComponent({
       "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg"
     );
 
+
+  //  const img_url = ref(
+  //    "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg"
+  //  );
+
+    const back_img_url=ref("")
+
     // axios.<method> will now provide autocomplete and parameter typings
     const instance = {
       // baseURL: "https://api.coindesk.com/v1/bpi/currentprice.json",
@@ -109,12 +128,9 @@ export default defineComponent({
       // console.log(img_url.value);
       // img_url.value = await axios.get('/users/octocat/orgs/octokit/repos',instance);
       img_url.value = await axios.get('/url',instance).then(
-        // console.log("hahaha")
       );
       
     }
-
-
     // onMounted(() => {
     //     getRate()
     // })
@@ -130,7 +146,9 @@ export default defineComponent({
       imgs,
       // change_imgs,
       img_url,
+      back_img_url,
       response_img,
+      buttonstate,
     };
   },
 });
