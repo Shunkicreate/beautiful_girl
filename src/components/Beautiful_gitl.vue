@@ -6,19 +6,23 @@
           <h1>こちらは美女を検索することのできるページです．</h1>
         </div>
         <div class="col-4">
-          <img
-            alt="Vue logo"
-            class="img-fluid d-block mx-auto"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
-            v-if="girl_search.type === 'default'"
-          />
-          <img
-            alt="Vue logo"
-            class="img-fluid d-block mx-auto"
-            v-else-if="girl_search.type === 'api'"
-            :src="girl_search.img_url"
-          />
-          <a :href=girl_search.img_url target="_blank">画像のリンクはこちら</a>
+          <div v-if="girl_search.type === 'default'">
+            <img
+              alt="Vue logo"
+              class="img-fluid d-block mx-auto"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
+              
+            />
+          </div>
+          <div v-else-if="girl_search.type === 'api'">
+            <img
+              alt="Vue logo"
+              class="img-fluid d-block mx-auto"
+              
+              :src="girl_search.img_url"
+            />
+            <a :href=girl_search.img_url target="_blank">画像のリンクはこちら</a>
+          </div>
         </div>
         <div class="col-4">
           <button
