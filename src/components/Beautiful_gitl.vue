@@ -11,17 +11,17 @@
               alt="Vue logo"
               class="img-fluid d-block mx-auto"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
-              
             />
           </div>
           <div v-else-if="girl_search.type === 'api'">
             <img
               alt="Vue logo"
               class="img-fluid d-block mx-auto"
-              
               :src="girl_search.img_url"
             />
-            <a :href=girl_search.img_url target="_blank">画像のリンクはこちら</a>
+            <a :href="girl_search.img_url" target="_blank"
+              >画像のリンクはこちら</a
+            >
           </div>
         </div>
         <div class="col-4">
@@ -32,24 +32,17 @@
             :disabled="girl_search.buttonstate"
           >
             {{ girl_search.searching }}
-            
           </button>
         </div>
       </div>
     </div>
     <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      One of three columns
+      <div class="row">
+        <div class="col-sm">One of three columns</div>
+        <div class="col-sm">One of three columns</div>
+        <div class="col-sm">One of three columns</div>
+      </div>
     </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-  </div>
-</div>
   </div>
 </template>
 
