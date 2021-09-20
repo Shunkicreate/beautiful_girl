@@ -97,17 +97,17 @@ export default defineComponent({
       data: {
         firstName: "Fred",
       },
-      // `onUploadProgress` allows handling of progress events for uploads
-      // browser only
-      onUploadProgress: function (progressEvent) {
-        // Do whatever you want with the native progress event
-      },
+      // // `onUploadProgress` allows handling of progress events for uploads
+      // // browser only
+      // onUploadProgress: function (progressEvent) {
+      //   // Do whatever you want with the native progress event
+      // },
 
-      // `onDownloadProgress` allows handling of progress events for downloads
-      // browser only
-      onDownloadProgress: function (progressEvent) {
-        // Do whatever you want with the native progress event
-      },
+      // // `onDownloadProgress` allows handling of progress events for downloads
+      // // browser only
+      // onDownloadProgress: function (progressEvent) {
+      //   // Do whatever you want with the native progress event
+      // },
     };
 
     async function response_imgs() {
