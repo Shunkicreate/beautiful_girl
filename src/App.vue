@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">美女検索</router-link> |
-    <router-link to="/about">関連画像検索</router-link>
+    <router-link to="/about">関連画像検索</router-link> |
+    <router-link to="/japan">日本全国美女図鑑</router-link>
   </div>
 
   <router-view/>

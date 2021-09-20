@@ -3,59 +3,26 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-auto col-md-12">
-          <h1>日本全国美女図鑑こちらは美女を検索することのできるページです．</h1>
+          <h1>日本全国美女図鑑</h1>
         </div>
-        <div class="col-4">
-          <div v-if="girl_search.type === 'default'">
-            <img
-              alt="Vue logo"
-              class="img-fluid d-block mx-auto"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
-            />
-          </div>
-          <div v-else-if="girl_search.type === 'api'">
-            <img alt="Vue logo" class="img-fluid d-block mx-auto" :src="girl_search.img_url" />
-            <a :href="girl_search.img_url" target="_blank">画像のリンクはこちら</a>
-            <img
-              :alt="girl_search.img_urls[girl_search.show_num]['alt']"
-              class="img-fluid d-block mx-auto"
-              :src="girl_search.img_urls[girl_search.show_num]['url']"
-            />
-            <a :href="girl_search.img_url" target="_blank">画像のリンクはこちら</a>
-          </div>
+        <div v-for="district in districts" :key="district" class="col-3">
+          <button type="button" class="btn btn-outline-secondary" @click="district_img(district)">{{ district }}</button>
         </div>
-        <div class="col-4">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            @click="response_img()"
-            :disabled="girl_search.buttonstate"
-          >{{ girl_search.searching }}</button>
+        <div class="col-12">
+        表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．
         </div>
-        <div class="col-4">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            @click="change_imgs()"
-            :disabled="girl_search.buttonstates"
-          >{{ girl_search.searching }}</button>
-        </div>
-        {{girl_search}}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" >
-import { defineComponent, ref, reactive } from "@vue/runtime-core";
+import { defineComponent, reactive } from "@vue/runtime-core";
 import axios from "axios";
 export default defineComponent({
-  name: "bootstrap",
+  name: "district",
   setup() {
     const API_URL = "https://hack-z-2021-9-prettygirl.azurewebsites.net";
-    const buttonstate = ref(false);
-    const img_url = ref("");
-    const type = ref("default");
     const girl_search = reactive({
       buttonstate: false,
       buttonstates: false,
@@ -75,6 +42,7 @@ export default defineComponent({
       data_size: 3,
       show_num: -1,
     });
+    const districts = ["北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州"]
 
     // axios.<method> will now provide autocomplete and parameter typings
     const instance = {
@@ -87,12 +55,12 @@ export default defineComponent({
     };
 
     function change_imgs() {
-      
+
       if (girl_search.type == "default") {
-        girl_search.show_num+=1
+        girl_search.show_num += 1
         response_img()
       }
-      else if(girl_search.type == "api") {
+      else if (girl_search.type == "api") {
         show_img()
         if (girl_search.show_num == 2) {
           girl_search.show_num = -1
@@ -105,7 +73,7 @@ export default defineComponent({
       girl_search.buttonstates = true;
       girl_search.searching = "検索中．．．";
       await new Promise(resolve => setTimeout(resolve, 3000)) //ms
-      girl_search.show_num+=1
+      girl_search.show_num += 1
       girl_search.buttonstates = false;
       girl_search.searching = "検索";
     }
@@ -149,17 +117,21 @@ export default defineComponent({
         girl_search.type = "api";
       }
     }
+    async function district_img(district:string) {
+      console.log(district)
+
+    }
     return {
       response_img,
       girl_search,
       change_imgs,
       show_img,
+      districts,
+      district_img
     };
   },
 });
 </script>
 
 <style>
-
-
 </style>
