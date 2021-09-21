@@ -1,20 +1,20 @@
 <template>
-  <div class="bootstrap">
+  <div class="relatedimg">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 align-self-end">
-          <h1>こちらは関連画像を検索することのできるページです．</h1>
-        </div>
-
-        <div class="col-4 align-self-left">
-          <img
+           <img
             alt="Vue logo"
-            class="img-fluid d-block mx-auto"
+            class="img-fluid d-block mx-auto "
             v-bind:src="imgs[num % 2]"
           />
         </div>
+
+        <div class="col-4 align-self-left">
+         <!-- <h1>こちらは関連画像を検索することのできるページです．</h1> -->
+        </div>
         <div class="col-4 align-self-end">
-          <h1>こちらは関連画像を検索することのできるページです．</h1>
+          <h1>#美女<br></h1>
         </div>
 
         <div class="col-4">
@@ -30,16 +30,18 @@
           <input v-model="related_search.query" placeholder="edit me" />
           <p>query is: {{ related_search.query }}</p>
         </div>
-        <div class="col-12">
-          <div class="container">
-            <div class="row">
-              <div v-for="n in related_search.data_len" :key="n" class="col-4">
-                <img
-                  alt="Vue logo"
-                  class="img-fluid d-block mx-auto"
-                  :src="related_search.img_urls[n]"
-                />
-              </div>
+        <div class="container">
+          <div class="img-list">
+            <div 
+              class="img-wrap"
+              v-for="n in related_search.data_len" :key="n"
+            >
+            <div class="col-4" :style="{'background-image': 'url('+related_search.img_urls[n]+')','height':'293px','width':'293px','background-size':'cover'}"></div>
+            <!-- <img
+              alt="Vue logo"
+              class="img"
+              :src="c"
+            /> -->
             </div>
           </div>
         </div>
@@ -75,7 +77,7 @@ export default defineComponent({
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ36yTCvRO2dTANUwYUoFsiv49EH481YyDU5b6CzAU-PszULJOnT_XVqG-_D0c&s",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvkdYN_HavsKCo9UQolVxFaqehh8RGMttAdoDCKuE_ooK5wf14qhTLl-KT8A&s",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTETbROBmSKKeVFq5N_7dCmcDlDdXU5zIxk-E47nskQnAIanVLMjhuDiDMicg&s",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4hVuQGVA1Tvcy6LBwlEFMLg9TTLAmvLxz9HXORQWLYVLfZfTAkotXOdfx9A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlpwAvadQkvK12RBqQLyp1ZNn14UJAZxozwwh6agjytZwFQPCJUycSLthfghU&s",
       ],
       data_len: 9,
       query: "",
@@ -144,4 +146,19 @@ export default defineComponent({
 </script>
 
 <style>
+.img-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.img-wrap {
+  width: 100%;
+}
+
+ .img {
+   width: 100%;
+   object-fit: cover;
+ }
+
 </style>
