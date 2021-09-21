@@ -6,20 +6,21 @@
           <h1>日本全国美女図鑑</h1>
           <h2 v-if="district_search.query">{{ district_search.query }}編</h2>
         </div>
-        <div v-for="district in districts" :key="district" class="col-3">
+        <div v-for="key in keys" :key="key" class="col-3">
           <button
             type="button"
             class="btn btn-outline-secondary"
-            @click="district_img(district)"
+            @click="response_imgs(key)"
             :disabled="district_search.buttonstate"
-          >{{ district }}</button>
+          >{{ key }}</button>
         </div>
         <div
-          v-for="(img_url,i) in district_search.img_urls"
+          v-for="(img_url,index) in district_search.urls"
           :key="img_url"
           class="col-4"
-          :style="{ 'background-image': 'url(' + district_search.img_urls[i] + ')', 'height': '293px', 'width': '293px', 'background-size': 'cover' }"
-        ></div>
+          :style="{ 'background-image': 'url(' + district_search.urls[index] + ')', 'height': '293px', 'width': '293px', 'background-size': 'cover' }"
+        ><div><a :href="district_search.tweets[index]"></a></div></div>
+
         <div class="col-12">表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．</div>
       </div>
     </div>
@@ -54,31 +55,73 @@ export default defineComponent({
       show_num: -1,
       query: "",
       num: 9,
+      pic_datas: [{
+        "tweet": "tweet",
+        "url": "url"
+      }],
+      tweets: [""],
+      urls: [""],
+
     });
-    const districts = [
-      "北海道",
-      "東北",
-      "関東",
-      "中部",
-      "近畿",
-      "中国",
-      "四国",
-      "九州",
-    ];
+    const districts = reactive({
+      "北海道": 0,
+      "東北": 1,
+      "関東": 2,
+      "中部": 3,
+      "近畿": 4,
+      "中国": 5,
+      "四国": 6,
+      "九州": 7,
+    });
+    const district_lists = ["北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州"]
+
+    function serch_num(areas: string) {
+      for (var i = 0; i < district_lists.length; i++) {
+        if (areas == district_lists[i]) {
+          return i;
+        }
+      }
+      return 0
+    }
+    const keys = Object.keys(districts)
     const data = reactive({
       query: district_search.query,
       num: district_search.num,
     });
-    // axios.<method> will now provide autocomplete and parameter typings
-    const instance = {
-      baseURL: API_URL,
-      timeout: 100000,
-      headers: { "Content-type": "text/json" },
-      // `withCredentials` indicates whether or not cross-site Access-Control requests
-      // should be made using credentials
-      withCredentials: false, // default
-    };
+    async function response_imgs(query: string) {
+      district_search.buttonstate = true;
+      district_search.searching = "検索中．．．";
+      console.log("start axios")
+      await axios({
+        method: 'post',
+        url: 'https://cookpad-mercy.azurewebsites.net/',
+        data: {
+          place: serch_num(query),
+        }
+      })
+        .then(function (response) {
+          // handle success(axiosの処理が成功した場合に処理させたいことを記述)
+          district_search.pic_datas = response.data.data;
+          console.log(district_search.pic_datas)
+          for (var i = 0; i < district_search.pic_datas.length; i++) {
+            //district_search.tweets.splice[0,1]
+            district_search.tweets[i]=district_search.pic_datas[i]['tweet']
+            district_search.urls[i]=district_search.pic_datas[i]['url']
+          }
+          console.log(district_search.tweets)
+          district_search.buttonstate=false;
+          district_search.searching="検索";
+          district_search.query=query
+        })
+        .catch(function (error) {
+          // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
+          console.log(error);
+        });
 
+
+      district_search.buttonstate = false;
+      district_search.searching = "検索";
+    }
     function change_imgs() {
       if (district_search.type == "default") {
         district_search.show_num += 1;
@@ -104,7 +147,7 @@ export default defineComponent({
       district_search.buttonstate = true;
       district_search.searching = "検索中．．．";
       await axios
-        .get("/url", instance)
+        .get("/url")
         .then(function (response) {
           // handle success(axiosの処理が成功した場合に処理させたいことを記述)
           district_search.img_url = response.data;
@@ -120,70 +163,18 @@ export default defineComponent({
       }
     }
 
-    async function response_imgs() {
-      district_search.buttonstate = true;
-      district_search.searching = "検索中．．．";
-      await axios
-        .get("/url", instance)
-        .then(function (response) {
-          // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-          district_search.img_urls = response.data.datas;
-          district_search.buttonstate = false;
-          district_search.searching = "検索";
-        })
-        .catch(function (error) {
-          // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
-          console.log(error);
-        });
-      if (district_search.type == "default") {
-        district_search.type = "api";
-      }
-    }
-    async function district_img(district: string) {
-      console.log(district);
 
-      district_search.buttonstate = true;
-      district_search.searching = "検索中．．．";
-      data.query = district;
-      data.num = 9;
-      if (district_search.type == "default") {
-        //apiを使った処理(データを受け取り，一つ目を表示)
-        // await axios
-        //   .post("/url", data, instance)
-        //   .then(function (response) {
-        //     // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-        //     district_search.img_urls = response.data.datas;
-        //     district_search.buttonstate = false;
-        //     district_search.searching = "検索";
-        //     district_search.type = "api";
-        //     district_search.show_num = 0;
-        //   })
-        //   .catch(function (error) {
-        //     // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
-        //     console.log(error);
-        //   });
-        await new Promise((resolve) => setTimeout(resolve, 5000)); //ms
-        district_search.show_num++;
-        district_search.searching = "検索";
-        district_search.buttonstate = false;
-      } else if (district_search.type == "api") {
-        //apiを使わずに画像のみを切り替える．表示する番号を変える．girl_serch.show_num
-        await new Promise((resolve) => setTimeout(resolve, 5000)); //ms
-        district_search.show_num++;
-        district_search.searching = "検索";
-        district_search.buttonstate = false;
-        if (district_search.show_num == 2) {
-          district_search.type = "default";
-        }
-      }
-    }
     return {
       response_img,
       district_search,
       change_imgs,
       show_img,
       districts,
-      district_img,
+      response_imgs,
+      keys,
+      district_lists,
+      serch_num,
+
     };
   },
 });
@@ -191,7 +182,8 @@ export default defineComponent({
 
 <style>
 img {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;}
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
 </style>
