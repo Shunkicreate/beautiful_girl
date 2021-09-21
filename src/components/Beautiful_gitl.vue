@@ -40,7 +40,7 @@
             :disabled="girl_search.buttonstates"
           >{{ girl_search.searching }}</button>
         </div>
-        {{girl_search}}
+        {{ girl_search }}
       </div>
     </div>
   </div>
@@ -53,9 +53,6 @@ export default defineComponent({
   name: "bootstrap",
   setup() {
     const API_URL = "https://hack-z-2021-9-prettygirl.azurewebsites.net";
-    const buttonstate = ref(false);
-    const img_url = ref("");
-    const type = ref("default");
     const girl_search = reactive({
       buttonstate: false,
       buttonstates: false,
@@ -76,6 +73,11 @@ export default defineComponent({
       show_num: -1,
     });
 
+    const data = reactive({
+      "query": "query",
+      "num": 0,
+    })
+
     // axios.<method> will now provide autocomplete and parameter typings
     const instance = {
       baseURL: API_URL,
@@ -87,12 +89,12 @@ export default defineComponent({
     };
 
     function change_imgs() {
-      
+
       if (girl_search.type == "default") {
-        girl_search.show_num+=1
+        girl_search.show_num += 1
         response_img()
       }
-      else if(girl_search.type == "api") {
+      else if (girl_search.type == "api") {
         show_img()
         if (girl_search.show_num == 2) {
           girl_search.show_num = -1
@@ -105,7 +107,7 @@ export default defineComponent({
       girl_search.buttonstates = true;
       girl_search.searching = "検索中．．．";
       await new Promise(resolve => setTimeout(resolve, 3000)) //ms
-      girl_search.show_num+=1
+      girl_search.show_num += 1
       girl_search.buttonstates = false;
       girl_search.searching = "検索";
     }
@@ -149,17 +151,48 @@ export default defineComponent({
         girl_search.type = "api";
       }
     }
+
+    async function request_imgs(queri: string, num: number) {
+      girl_search.buttonstate = true;
+      girl_search.searching = "検索中．．．";
+      if (girl_search.type == "default") {
+        //apiを使った処理(データを受け取り，一つ目を表示)
+        await axios
+          .post("/url", data, instance)
+          .then(function (response) {
+            // handle success(axiosの処理が成功した場合に処理させたいことを記述)
+            girl_search.img_urls = response.data.datas;
+            girl_search.buttonstate = false;
+            girl_search.searching = "検索";
+            girl_search.type = "api";
+            girl_search.show_num=0;
+          })
+          .catch(function (error) {
+            // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
+            console.log(error);
+          });
+      }
+      else if (girl_search.type == "api") {
+        //apiを使わずに画像のみを切り替える．表示する番号を変える．girl_serch.show_num
+        await new Promise(resolve => setTimeout(resolve, 5000)) //ms
+        girl_search.show_num++;
+        girl_search.searching = "検索";
+        if(girl_search.show_num==2){
+          girl_search.type = "default"
+        }
+      }
+
+    }
     return {
       response_img,
       girl_search,
       change_imgs,
       show_img,
+      request_imgs,//本番で使いたいやつ(post)
     };
   },
 });
 </script>
 
 <style>
-
-
 </style>
