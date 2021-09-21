@@ -32,7 +32,7 @@ import axios from "axios";
 export default defineComponent({
   name: "district",
   setup() {
-    const API_URL = "https://hack-z-2021-9-prettygirl.azurewebsites.net";
+    const API_URL = "https://quiet-stream-64429.herokuapp.com";
     const district_search = reactive({
       buttonstate: false,
       buttonstates: false,
