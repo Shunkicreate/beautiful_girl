@@ -159,11 +159,12 @@ export default defineComponent({
  }
 
 .front_img{
-  
+
   border-radius: 50%;
       width: 250px;
       height: 250px;
-      background-image:url("https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg")
+      background-image: url("https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg");
+      background-position: center;
       /* object-fit: cover;円で表示している領域全体に画像を表示する */
       /* border: 9px solid #00cc00;枠線追加 */
 }

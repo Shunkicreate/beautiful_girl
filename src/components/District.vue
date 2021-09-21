@@ -49,7 +49,6 @@ export default defineComponent({
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ36yTCvRO2dTANUwYUoFsiv49EH481YyDU5b6CzAU-PszULJOnT_XVqG-_D0c&s",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvkdYN_HavsKCo9UQolVxFaqehh8RGMttAdoDCKuE_ooK5wf14qhTLl-KT8A&s",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTETbROBmSKKeVFq5N_7dCmcDlDdXU5zIxk-E47nskQnAIanVLMjhuDiDMicg&s",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlpwAvadQkvK12RBqQLyp1ZNn14UJAZxozwwh6agjytZwFQPCJUycSLthfghU&s",
       ],
       data_size: 3,
       show_num: -1,
@@ -191,4 +190,8 @@ export default defineComponent({
 </script>
 
 <style>
+img {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;}
 </style>
