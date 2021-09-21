@@ -33,6 +33,7 @@
             @click="request_imgs()"
             :disabled="girl_search.buttonstate"
           >
+          
             {{ girl_search.searching }}
           </button>
         </div>
