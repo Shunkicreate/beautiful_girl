@@ -2,19 +2,16 @@
   <div class="relatedimg">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-4 align-self-end">
-           <img
-            alt="Vue logo"
-            class="img-fluid d-block mx-auto "
-            v-bind:src="imgs[num % 2]"
-          />
+        <div class="col-4 align-self-end front_img" style="'background-image':url(https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg)">
+           
         </div>
 
         <div class="col-4 align-self-left">
-         <!-- <h1>こちらは関連画像を検索することのできるページです．</h1> -->
+         <!-- <h1>こちらは関連画像を検索することのできるページです．</h1> --><h1>#美女</h1>
+         <p> 厳選ベスト５０</p>
         </div>
         <div class="col-4 align-self-end">
-          <h1>#美女<br></h1>
+          
         </div>
 
         <div class="col-4">
@@ -161,4 +158,21 @@ export default defineComponent({
    object-fit: cover;
  }
 
+.front_img{
+  
+  border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      background-image:url("https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg")
+      /* object-fit: cover;円で表示している領域全体に画像を表示する */
+      /* border: 9px solid #00cc00;枠線追加 */
+}
+.col-4 h1 {
+  padding-top: 50px;
+  padding-right:100px;
+}
+.col-4 p {
+  
+  padding-right:100px;
+}
 </style>
