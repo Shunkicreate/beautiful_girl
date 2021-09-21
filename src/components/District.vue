@@ -12,16 +12,27 @@
             class="btn btn-outline-secondary"
             @click="response_imgs(key)"
             :disabled="district_search.buttonstate"
-          >{{ key }}</button>
+          >
+            {{ key }}
+          </button>
         </div>
         <div
-          v-for="(img_url,index) in district_search.urls"
+          v-for="(img_url, index) in district_search.urls"
           :key="img_url"
           class="col-4"
-          :style="{ 'background-image': 'url(' + district_search.urls[index] + ')', 'height': '293px', 'width': '293px', 'background-size': 'cover' }"
-        ><div><a :href="district_search.tweets[index]"></a></div></div>
+          :style="{
+            'background-image': 'url(' + district_search.urls[index] + ')',
+            height: '293px',
+            width: '293px',
+            'background-size': 'cover',
+          }"
+        >
+          <div><a :href="district_search.tweets[index]"></a></div>
+        </div>
 
-        <div class="col-12">表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．</div>
+        <div class="col-12">
+          表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．
+        </div>
       </div>
     </div>
   </div>
@@ -55,25 +66,35 @@ export default defineComponent({
       show_num: -1,
       query: "",
       num: 9,
-      pic_datas: [{
-        "tweet": "tweet",
-        "url": "url"
-      }],
+      pic_datas: [
+        {
+          tweet: "tweet",
+          url: "url",
+        },
+      ],
       tweets: [""],
       urls: [""],
-
     });
     const districts = reactive({
-      "北海道": 0,
-      "東北": 1,
-      "関東": 2,
-      "中部": 3,
-      "近畿": 4,
-      "中国": 5,
-      "四国": 6,
-      "九州": 7,
+      北海道: 0,
+      東北: 1,
+      関東: 2,
+      中部: 3,
+      近畿: 4,
+      中国: 5,
+      四国: 6,
+      九州: 7,
     });
-    const district_lists = ["北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州"]
+    const district_lists = [
+      "北海道",
+      "東北",
+      "関東",
+      "中部",
+      "近畿",
+      "中国",
+      "四国",
+      "九州",
+    ];
 
     function serch_num(areas: string) {
       for (var i = 0; i < district_lists.length; i++) {
@@ -81,9 +102,9 @@ export default defineComponent({
           return i;
         }
       }
-      return 0
+      return 0;
     }
-    const keys = Object.keys(districts)
+    const keys = Object.keys(districts);
     const data = reactive({
       query: district_search.query,
       num: district_search.num,
@@ -91,33 +112,32 @@ export default defineComponent({
     async function response_imgs(query: string) {
       district_search.buttonstate = true;
       district_search.searching = "検索中．．．";
-      console.log("start axios")
+      console.log("start axios");
       await axios({
-        method: 'post',
-        url: 'https://cookpad-mercy.azurewebsites.net/',
+        method: "post",
+        url: "https://cookpad-mercy.azurewebsites.net/",
         data: {
           place: serch_num(query),
-        }
+        },
       })
         .then(function (response) {
           // handle success(axiosの処理が成功した場合に処理させたいことを記述)
           district_search.pic_datas = response.data.data;
-          console.log(district_search.pic_datas)
+          console.log(district_search.pic_datas);
           for (var i = 0; i < district_search.pic_datas.length; i++) {
             //district_search.tweets.splice[0,1]
-            district_search.tweets[i]=district_search.pic_datas[i]['tweet']
-            district_search.urls[i]=district_search.pic_datas[i]['url']
+            district_search.tweets[i] = district_search.pic_datas[i]["tweet"];
+            district_search.urls[i] = district_search.pic_datas[i]["url"];
           }
-          console.log(district_search.tweets)
-          district_search.buttonstate=false;
-          district_search.searching="検索";
-          district_search.query=query
+          console.log(district_search.tweets);
+          district_search.buttonstate = false;
+          district_search.searching = "検索";
+          district_search.query = query;
         })
         .catch(function (error) {
           // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
           console.log(error);
         });
-
 
       district_search.buttonstate = false;
       district_search.searching = "検索";
@@ -163,7 +183,6 @@ export default defineComponent({
       }
     }
 
-
     return {
       response_img,
       district_search,
@@ -174,20 +193,10 @@ export default defineComponent({
       keys,
       district_lists,
       serch_num,
-
     };
   },
 });
 </script>
 
 <style>
-<<<<<<< HEAD
-
-=======
-img {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
->>>>>>> eeea10319ef7fd2d4d3747e001042da6636112a6
 </style>

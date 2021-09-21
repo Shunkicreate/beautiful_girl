@@ -19,7 +19,11 @@
               class="img-fluid d-block mx-auto"
               :src="girl_search.img_urls[girl_search.show_num]['url']"
             />
-            <a :href="girl_search.img_urls[girl_search.show_num]['url']" target="_blank">画像のリンクはこちら</a>
+            <a
+              :href="girl_search.img_urls[girl_search.show_num]['url']"
+              target="_blank"
+              >画像のリンクはこちら</a
+            >
           </div>
         </div>
         <div class="col-4">
@@ -27,8 +31,10 @@
             type="button"
             class="btn btn-outline-secondary"
             @click="request_imgs()"
-            :disabled="girl_search.buttonstates"
-          >{{ girl_search.searching }}</button>
+            :disabled="girl_search.buttonstate"
+          >
+            {{ girl_search.searching }}
+          </button>
         </div>
       </div>
     </div>
@@ -48,20 +54,23 @@ export default defineComponent({
       img_url: "",
       type: "default",
       searching: "検索",
-      img_urls: [{
-        "url": "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg",
-        "alt": "altだよ"
-      }, {
-        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_SqPTzj0qk7nQI8NXHMOILGHLvSJrytRXw&usqp=CAU",
-        "alt": "altです"
-      }, {
-        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5kqcK1GKxeqVnWimYAZC8tlVTc77qU8-fhkonDEAes7XGjeKwt4jq5B1OVU&s",
-        "alt": "altなう"
-      }],
+      img_urls: [
+        {
+          url: "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg",
+          alt: "altだよ",
+        },
+        {
+          url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_SqPTzj0qk7nQI8NXHMOILGHLvSJrytRXw&usqp=CAU",
+          alt: "altです",
+        },
+        {
+          url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5kqcK1GKxeqVnWimYAZC8tlVTc77qU8-fhkonDEAes7XGjeKwt4jq5B1OVU&s",
+          alt: "altなう",
+        },
+      ],
       data_size: 3,
       show_num: -1,
     });
-
 
     // axios.<method> will now provide autocomplete and parameter typings
     const instance = {
@@ -82,14 +91,14 @@ export default defineComponent({
           .get("/url", instance)
           .then(function (response) {
             // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-            console.log(response.data.data)
+            console.log(response.data.data);
             girl_search.img_urls = response.data.data;
             girl_search.buttonstate = false;
             girl_search.searching = "検索";
             girl_search.type = "api";
             girl_search.show_num = 0;
-            girl_search.data_size = girl_search.img_urls.length
-            console.log(girl_search)
+            girl_search.data_size = girl_search.img_urls.length;
+            console.log(girl_search);
           })
           .catch(function (error) {
             // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
@@ -106,14 +115,14 @@ export default defineComponent({
           .get("/url", instance)
           .then(function (response) {
             // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-            console.log(response.data.data)
+            console.log(response.data.data);
             girl_search.img_urls = response.data.data;
             girl_search.buttonstate = false;
             girl_search.searching = "検索";
             girl_search.type = "api";
             girl_search.show_num = 0;
-            girl_search.data_size = girl_search.img_urls.length
-            console.log(girl_search)
+            girl_search.data_size = girl_search.img_urls.length;
+            console.log(girl_search);
           })
           .catch(function (error) {
             // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
@@ -123,23 +132,20 @@ export default defineComponent({
             girl_search.type = "default";
             girl_search.show_num = -1;
           });
-      }
-      else if (girl_search.type == "api") {
+      } else if (girl_search.type == "api") {
         //apiを使わずに画像のみを切り替える．表示する番号を変える．girl_serch.show_num
-        await new Promise(resolve => setTimeout(resolve, 5000)) //ms
+        await new Promise((resolve) => setTimeout(resolve, 5000)); //ms
         girl_search.show_num++;
         girl_search.buttonstate = false;
         girl_search.searching = "検索";
-
       }
-
     }
     return {
       // response_img,
       girl_search,
       // change_imgs,
       // show_img,
-      request_imgs,//本番で使いたいやつ(post)
+      request_imgs, //本番で使いたいやつ(post)
     };
   },
 });
