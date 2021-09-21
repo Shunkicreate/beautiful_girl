@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-auto col-md-12">
-          <h1>こちらは美女を検索することのできるページです．</h1>
+          <h4>こちらは美女を検索することのできるページです．</h4>
         </div>
         <div class="col-4">
           <div v-if="girl_search.type === 'default'">
@@ -33,7 +33,7 @@
             @click="request_imgs()"
             :disabled="girl_search.buttonstate"
           >
-          
+
             {{ girl_search.searching }}
           </button>
         </div>
