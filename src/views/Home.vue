@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '../components/HelloWorld.vue'; // @ is an alias to /src
-import Bootstrap from '../components/Beautiful_gitl.vue'; // @ is an alias to /src
+import Bootstrap from '../components/Beautiful_girl.vue'; // @ is an alias to /src
 
 @Options({
   components: {
