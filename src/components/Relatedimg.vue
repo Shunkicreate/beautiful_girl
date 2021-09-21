@@ -2,19 +2,19 @@
   <div class="relatedimg">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-4 align-self-end front_img" style="'background-image':url(https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg)">
+        <div class="col-4 front_img" style="'background-image':url(https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg)">
            
         </div>
 
         <div class="col-4 align-self-left">
          <!-- <h1>こちらは関連画像を検索することのできるページです．</h1> --><h1>#美女</h1>
-         <p> 厳選ベスト５０</p>
+         <p> 厳選ベスト9</p>
         </div>
         <div class="col-4 align-self-end">
           
         </div>
 
-        <div class="col-4">
+        <div class="col-4 botan">
           <button
             type="button"
             class="btn btn-outline-secondary"
@@ -23,9 +23,8 @@
             検索
           </button>
         </div>
-        <div class="col-4">
+        <div class="col-4 botan">
           <input v-model="related_search.query" placeholder="edit me" />
-          <p>query is: {{ related_search.query }}</p>
         </div>
         <div class="container">
           <div class="img-list">
@@ -144,17 +143,22 @@ export default defineComponent({
 
 <style>
 .img-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  /* grid-template-columns: repeat(3, 1fr); */
+   flex-wrap:wrap; 
+  /* gap: 20px; */
+  width: 900px;
+    margin: 0 auto;
 }
 
 .img-wrap {
-  width: 100%;
+  /* width: 100%; */
+  width: 293px;
+  /* padding-bottom:30px; */
 }
 
  .img {
-   width: 100%;
+   /* width: 100%; */
    object-fit: cover;
  }
 
@@ -167,6 +171,7 @@ export default defineComponent({
       background-position: center;
       /* object-fit: cover;円で表示している領域全体に画像を表示する */
       /* border: 9px solid #00cc00;枠線追加 */
+      margin-left: 165px;
 }
 .col-4 h1 {
   padding-top: 50px;
@@ -175,5 +180,11 @@ export default defineComponent({
 .col-4 p {
   
   padding-right:100px;
+}
+.botan {
+  padding-bottom: 80px;
+}
+.col-4 {
+  padding-left: 100px;
 }
 </style>

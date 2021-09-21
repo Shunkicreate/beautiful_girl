@@ -190,8 +190,5 @@ export default defineComponent({
 </script>
 
 <style>
-img {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;}
+
 </style>

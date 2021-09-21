@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-auto col-md-12">
-          <h1>日本全国美女図鑑こちらは美女を検索することのできるページです．</h1>
+          <h1>こちらは美女を検索することのできるページです．</h1>
         </div>
         <div class="col-4">
           <div v-if="girl_search.type === 'default'">
