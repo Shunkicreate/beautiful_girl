@@ -3,9 +3,20 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-auto col-md-12">
-          <h4>こちらは美女を検索することのできるページです．</h4>
+          <h1>美女検索</h1>
         </div>
-        <div class="col-4">
+        <div class="col-12">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            @click="request_imgs()"
+            :disabled="girl_search.buttonstate"
+          >
+
+            {{ girl_search.searching }}
+          </button>
+        </div>
+        <div class="col-12">
           <div v-if="girl_search.type === 'default'">
             <img
               alt="Vue logo"
@@ -25,17 +36,6 @@
               >画像のリンクはこちら</a
             >
           </div>
-        </div>
-        <div class="col-4">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            @click="request_imgs()"
-            :disabled="girl_search.buttonstate"
-          >
-
-            {{ girl_search.searching }}
-          </button>
         </div>
       </div>
     </div>

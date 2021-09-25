@@ -22,12 +22,15 @@
             class="btn btn-outline-secondary"
             @click="response_imgs(related_search.query, 3)"
             :disabled="related_search.buttonstate"
-          >
-            検索
-          </button>
+          >検索</button>
         </div>
         <div class="col-4 botan">
-          <input v-model="related_search.query" placeholder="edit me" />
+          <input
+            v-model="related_search.query"
+            @keyup.enter="response_imgs(related_search.query, 3)"
+            placeholder="edit me"
+            :disabled="related_search.buttonstate"
+          />
         </div>
         <div class="container">
           <div class="img-list">

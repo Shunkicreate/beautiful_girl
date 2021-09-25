@@ -12,27 +12,42 @@
             class="btn btn-outline-secondary"
             @click="response_imgs(key)"
             :disabled="district_search.buttonstate"
-          >
-            {{ key }}
-          </button>
+          >{{ key }}</button>
         </div>
-        <div
-          v-for="(img_url, index) in district_search.urls"
-          :key="img_url"
-          class="col-4"
-          :style="{
-            'background-image': 'url(' + district_search.urls[index] + ')',
-            height: '293px',
-            width: '293px',
-            'background-size': 'cover',
-          }"
-        >
-          <div><a :href="district_search.tweets[index]"></a></div>
+        <div v-if="district_search.buttonstate === true" class="col-12">
+          <h2>検索中．．．</h2>
+        </div>
+        <div v-if="district_search.error === true" class="col-12">
+          <h3>ネットワークエラー：{{ district_search.error_text }}</h3>
+        </div>
+        <div class="col-9">
+          <div class="row justify-content-center">
+            <!-- <div class="img-list"> -->
+            <div
+              v-for="(img_url, index) in district_search.urls"
+              :key="img_url"
+              class="col-6 col-sm-3 content"
+              :style="{
+                'background-image': 'url(' + district_search.urls[index] + ')',
+                width: '293px',
+                height: '293px',
+                'background-size': 'cover',
+              }"
+            ></div>
+          </div>
+        </div>
+        <!-- </div> -->
+        <div v-for="(tweet, index) in district_search.tweets" :key="tweet" class="col-4">
+          <a
+            type="a"
+            class="btn btn-outline-secondary"
+            :disabled="district_search.buttonstate"
+            :href="district_search.tweets[index]"
+            target="_blank"
+          >{{ district_search.tweets[index] }}</a>
         </div>
 
-        <div class="col-12">
-          表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．
-        </div>
+        <div class="col-12">表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．</div>
       </div>
     </div>
   </div>
@@ -47,7 +62,6 @@ export default defineComponent({
     const API_URL = "https://quiet-stream-64429.herokuapp.com";
     const district_search = reactive({
       buttonstate: false,
-      buttonstates: false,
       img_url: "",
       type: "default",
       searching: "検索",
@@ -74,6 +88,8 @@ export default defineComponent({
       ],
       tweets: [""],
       urls: [""],
+      error: false,
+      error_text: ""
     });
     const districts = reactive({
       北海道: 0,
@@ -137,57 +153,13 @@ export default defineComponent({
         .catch(function (error) {
           // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
           console.log(error);
+          district_search.error = true;
+          district_search.error_text = error;
+          district_search.buttonstate === true;
         });
-
-      district_search.buttonstate = false;
-      district_search.searching = "検索";
     }
-    function change_imgs() {
-      if (district_search.type == "default") {
-        district_search.show_num += 1;
-        response_img();
-      } else if (district_search.type == "api") {
-        show_img();
-        if (district_search.show_num == 2) {
-          district_search.show_num = -1;
-          district_search.type = "default";
-        }
-      }
-    }
-    async function show_img() {
-      district_search.buttonstates = true;
-      district_search.searching = "検索中．．．";
-      await new Promise((resolve) => setTimeout(resolve, 3000)); //ms
-      district_search.show_num += 1;
-      district_search.buttonstates = false;
-      district_search.searching = "検索";
-    }
-
-    async function response_img() {
-      district_search.buttonstate = true;
-      district_search.searching = "検索中．．．";
-      await axios
-        .get("/url")
-        .then(function (response) {
-          // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-          district_search.img_url = response.data;
-          district_search.buttonstate = false;
-          district_search.searching = "検索";
-        })
-        .catch(function (error) {
-          // handle error(axiosの処理にエラーが発生した場合に処理させたいことを記述)
-          console.log(error);
-        });
-      if (district_search.type == "default") {
-        district_search.type = "api";
-      }
-    }
-
     return {
-      response_img,
       district_search,
-      change_imgs,
-      show_img,
       districts,
       response_imgs,
       keys,
@@ -199,4 +171,12 @@ export default defineComponent({
 </script>
 
 <style>
+.img-list {
+  /*display: flex;
+  /* grid-template-columns: repeat(3, 1fr); */
+  /*flex-wrap: wrap;
+  /* gap: 20px; */
+ /* width: 880px;
+  /*margin: 0 auto;*/
+}
 </style>
