@@ -2,11 +2,11 @@
   <div class="bootstrap">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-auto col-md-12">
+        <div class="col-12">
           <h1>日本全国美女図鑑</h1>
           <h2 v-if="district_search.query">{{ district_search.query }}編</h2>
         </div>
-        <div v-for="key in keys" :key="key" class="col-3">
+        <div v-for="key in keys" :key="key" class="col-auto col-lg-1">
           <button
             type="button"
             class="btn btn-outline-secondary"
@@ -20,31 +20,42 @@
         <div v-if="district_search.error === true" class="col-12">
           <h3>ネットワークエラー：{{ district_search.error_text }}</h3>
         </div>
+      </div>
+      <div class="row justify-content-center">
         <div class="col-9">
           <div class="row justify-content-center">
             <!-- <div class="img-list"> -->
             <div
               v-for="(img_url, index) in district_search.urls"
               :key="img_url"
-              class="col-6 col-sm-3 content"
+              class="col-12 col-md-4 content"
               :style="{
                 'background-image': 'url(' + district_search.urls[index] + ')',
-                width: '293px',
-                height: '293px',
+                //width: '293px',
+                //height: '293px',
                 'background-size': 'cover',
+                marginRight: 0,
               }"
-            ></div>
+            >
+              <!-- <div -->
+              <!-- ></div> -->
+            </div>
           </div>
         </div>
-        <!-- </div> -->
-        <div v-for="(tweet, index) in district_search.tweets" :key="tweet" class="col-4">
-          <a
-            type="a"
-            class="btn btn-outline-secondary"
-            :disabled="district_search.buttonstate"
-            :href="district_search.tweets[index]"
-            target="_blank"
-          >{{ district_search.tweets[index] }}</a>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-9">
+          <div class="row">
+            <div v-for="(tweet, index) in district_search.tweets" :key="tweet" class="col-auto col-md-4">
+              <a
+                type="a"
+                class="btn btn-outline-info btn-lg"
+                :disabled="district_search.buttonstate"
+                :href="district_search.tweets[index]"
+                target="_blank"
+              >{{ district_search.tweets[index] }}</a>
+            </div>
+          </div>
         </div>
 
         <div class="col-12">表示された画像はウェブ上からランダムに取得しているため，画像があなたの思う美女でない可能性がございます．予めご了承ください．</div>
@@ -176,7 +187,23 @@ export default defineComponent({
   /* grid-template-columns: repeat(3, 1fr); */
   /*flex-wrap: wrap;
   /* gap: 20px; */
- /* width: 880px;
+  /* width: 880px;
   /*margin: 0 auto;*/
+}
+.content {
+  position: relative;
+}
+.content:before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+}
+.content input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
