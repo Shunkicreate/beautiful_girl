@@ -1,4 +1,4 @@
-<template>
+"<template>
   <div class="bootstrap">
     <div class="container">
       <div class="row justify-content-center">
@@ -12,17 +12,18 @@
             @click="request_imgs()"
             :disabled="girl_search.buttonstate"
           >
-
             {{ girl_search.searching }}
           </button>
         </div>
         <div class="pageintro">
-        <h6 clas="headline" style="color:#fd548d">美女検索機能</h6>
-        <span style="color: #333">何がでてくるかわからない＝「ワクワク」をお楽しみください<br>検索ボタンを押すとあなたがドキッとしてしまうような美女が現れます</span>
+          <h6 clas="headline" style="color: #fd548d">美女検索機能</h6>
+          <span style="color: #333"
+            >何がでてくるかわからない＝「ワクワク」をお楽しみください<br />検索ボタンを押すとあなたがドキッとしてしまうような美女が現れます</span
+          >
         </div>
         <div class="col-12">
           <div v-if="girl_search.type === 'default'">
-            <img 
+            <img
               alt="Vue logo"
               class="img-fluid d-block mx-auto"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
@@ -31,12 +32,12 @@
           </div>
           <div v-else-if="girl_search.type === 'api'">
             <img
-              :alt="girl_search.img_urls[girl_search.show_num]['alt']"
+              :alt="girl_search.alts[girl_search.show_num]"
               class="img-fluid d-block mx-auto"
-              :src="girl_search.img_urls[girl_search.show_num]['url']"
+              :src="girl_search.img_urls[girl_search.show_num]"
             />
             <a
-              :href="girl_search.img_urls[girl_search.show_num]['url']"
+              :href="girl_search.img_urls[girl_search.show_num]"
               target="_blank"
               >画像のリンクはこちら</a
             >
@@ -60,7 +61,7 @@ export default defineComponent({
       img_url: "",
       type: "default",
       searching: "検索",
-      img_urls: [
+      img_alt_data: [
         {
           url: "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg",
           alt: "altだよ",
@@ -76,6 +77,8 @@ export default defineComponent({
       ],
       data_size: 3,
       show_num: -1,
+      img_urls: [""],
+      alts: [""],
     });
 
     // axios.<method> will now provide autocomplete and parameter typings
@@ -91,19 +94,23 @@ export default defineComponent({
     async function request_imgs() {
       girl_search.buttonstate = true;
       girl_search.searching = "検索中．．．";
-      if (girl_search.show_num == girl_search.data_size - 1) {
+      if (girl_search.type == "default") {
         //apiを使った処理(データを受け取り，一つ目を表示)
         await axios
           .get("/url", instance)
           .then(function (response) {
             // handle success(axiosの処理が成功した場合に処理させたいことを記述)
             console.log(response.data.data);
-            girl_search.img_urls = response.data.data;
+            girl_search.img_alt_data = response.data.data;
+            girl_search.data_size = girl_search.img_alt_data.length;
+            for (var i = 0; i < girl_search.data_size; i++) {
+              girl_search.img_urls.push(girl_search.img_alt_data[i]["url"]);
+              girl_search.alts.push(girl_search.img_alt_data[i]["alt"]);
+            }
             girl_search.buttonstate = false;
             girl_search.searching = "検索";
             girl_search.type = "api";
             girl_search.show_num = 0;
-            girl_search.data_size = girl_search.img_urls.length;
             console.log(girl_search);
           })
           .catch(function (error) {
@@ -115,19 +122,24 @@ export default defineComponent({
             girl_search.show_num = -1;
           });
       }
-      if (girl_search.type == "default") {
+      if (girl_search.show_num == girl_search.data_size - 1) {
         //apiを使った処理(データを受け取り，一つ目を表示)
         await axios
           .get("/url", instance)
           .then(function (response) {
             // handle success(axiosの処理が成功した場合に処理させたいことを記述)
-            console.log(response.data.data);
-            girl_search.img_urls = response.data.data;
+            girl_search.img_urls=[]
+            girl_search.alts=[]
+            girl_search.img_alt_data = response.data.data;
+            girl_search.data_size = girl_search.img_alt_data.length;
+            for (var i = 0; i < girl_search.data_size; i++) {
+              girl_search.img_urls.push(girl_search.img_alt_data[i]["url"]);
+              girl_search.alts.push(girl_search.img_alt_data[i]["alt"]);
+            }
             girl_search.buttonstate = false;
             girl_search.searching = "検索";
             girl_search.type = "api";
             girl_search.show_num = 0;
-            girl_search.data_size = girl_search.img_urls.length;
             console.log(girl_search);
           })
           .catch(function (error) {
@@ -172,5 +184,6 @@ span {
 }
 .pageintro {
   padding: 10px 20px 20px 20px;
-  border: 1px #dedede solid;}
+  border: 1px #dedede solid;
+}
 </style>

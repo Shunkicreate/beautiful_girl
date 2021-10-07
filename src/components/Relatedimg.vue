@@ -22,7 +22,7 @@
             class="btn btn-outline-secondary"
             @click="response_imgs(related_search.query, 3)"
             :disabled="related_search.buttonstate"
-          >検索</button>
+          >{{related_search.searching}}</button>
         </div>
         <div class="col-4 botan">
           <input
@@ -44,15 +44,6 @@
                   'background-size': 'cover',
                 }"
               ></div>
-              <!--<div
-                class="col-4"
-                :style="{ backgroundImage: 'url(' + related_search.img_alt_data[n]['url'] + ')', 'height': '293px', 'width': '293px', }"
-              ></div>-->
-              <!-- <img
-              alt="Vue logo"
-              class="img"
-              :src="c"
-              />-->
             </div>
           </div>
         </div>
@@ -67,7 +58,6 @@ import axios from "axios";
 export default defineComponent({
   name: "related_img",
   setup() {
-    // const API_URL = "https://quiet-stream-64429.herokuapp.com";
     const num = ref(0);
     const imgs = reactive({
       0: "https://d35omnrtvqomev.cloudfront.net/photo/article/article_header/thumbnail_image_path/21342/27642ae5002a8b23758c83760774ec.jpg",
@@ -130,6 +120,9 @@ export default defineComponent({
     async function response_imgs(query: string, num: number) {
       related_search.buttonstate = true;
       related_search.searching = "検索中．．．";
+      related_search.pic_num = 0;
+      related_search.img_urls = [""]
+      related_search.alts = [""]
       while (related_search.img_urls.length < 9) {
         console.log("start axios");
         await axios({
@@ -167,6 +160,7 @@ export default defineComponent({
       }
       related_search.buttonstate = false;
       related_search.searching = "検索";
+      related_search.type="default";
     }
     return {
       num,
