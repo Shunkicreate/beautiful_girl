@@ -182,6 +182,10 @@ export default defineComponent({
 </script>
 
 <style>
+.col-12 h1 {
+padding-top: 50px;
+}
+
 .img-list {
   /*display: flex;
   /* grid-template-columns: repeat(3, 1fr); */

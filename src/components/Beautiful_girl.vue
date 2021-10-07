@@ -16,13 +16,18 @@
             {{ girl_search.searching }}
           </button>
         </div>
+        <div class="pageintro">
+        <h6 clas="headline" style="color:#fd548d">美女検索機能</h6>
+        <span style="color: #333">何がでてくるかわからない＝「ワクワク」をお楽しみください<br>検索ボタンを押すとあなたがドキッとしてしまうような美女が現れます</span>
+        </div>
         <div class="col-12">
           <div v-if="girl_search.type === 'default'">
-            <img
+            <img 
               alt="Vue logo"
               class="img-fluid d-block mx-auto"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ45WpeeT5E0--ZNAmZkvrlAzAGc7BL7w1-GZsLkcnsUiiw483cr1u3zumxhg"
             />
+            <p>*画像例</p>
           </div>
           <div v-else-if="girl_search.type === 'api'">
             <img
@@ -153,4 +158,19 @@ export default defineComponent({
 </script>
 
 <style>
+.col-12 {
+  padding-bottom: 50px;
+}
+.col-12 img {
+  padding-top: 50px;
+}
+.col-auto {
+  padding-top: 50px;
+}
+span {
+  font-weight: bold;
+}
+.pageintro {
+  padding: 10px 20px 20px 20px;
+  border: 1px #dedede solid;}
 </style>

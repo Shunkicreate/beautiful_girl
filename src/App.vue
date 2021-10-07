@@ -19,7 +19,7 @@
 
 #nav {
   padding: 30px;
-  background-color: #DF7373;
+  background-color: pink;
 
   a {
     font-weight: bold;
