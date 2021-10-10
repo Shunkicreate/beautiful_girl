@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "japan" */ '../views/Japan.vue')
   },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: Home
+  }
 ]
 
 const router = createRouter({
