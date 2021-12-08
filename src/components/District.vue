@@ -70,7 +70,7 @@ import axios from "axios";
 export default defineComponent({
   name: "district",
   setup() {
-    const API_URL = "https://quiet-stream-64429.herokuapp.com";
+    const API_URL = "https://tweeter-beautifulgirl.herokuapp.com/";
     const district_search = reactive({
       buttonstate: false,
       img_url: "",
@@ -142,7 +142,7 @@ export default defineComponent({
       console.log("start axios");
       await axios({
         method: "post",
-        url: "https://cookpad-mercy.azurewebsites.net/",
+        url: API_URL,
         data: {
           place: serch_num(query),
         },
