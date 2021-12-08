@@ -6,32 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home,
-  //   children: [
-  //     {
-  //       path:'/',
-  //       component:Home,
-  //     },
-  //     {
-  //       path:'/about',
-  //       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //     }
-  //   ]
   },
-  // {
-  //   path: '/beautiful_girl',
-  //   name: 'Home2',
-  //   component: Home2,
-  // //   children: [
-  // //     {
-  // //       path:'/',
-  // //       component:Home2,
-  // //     },
-  // //     {
-  // //       path:'/about',
-  // //       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // //     }
-  // //   ]
-  // },
   {
     path: '/about',
     name: 'About',
@@ -49,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "japan" */ '../views/Japan.vue')
   },
   {
-    path: '*',
+    path: '/*',
     name: 'NotFound',
     component: Home
   }

@@ -33,12 +33,7 @@
 </style>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
-// export default defineComponent({
-//   // setup() {
-    
-//   // },
-// })
+
 // なんとなくここにgithubへのデプロイ方法をメモっとく
 // yarn build
 // yarn deploy
