@@ -13,7 +13,7 @@ module.exports = {
       }
     },
   },
-  // publicPath: './',
+  publicPath: './',
   assetsDir: "",
   outputDir: "dist"
 }
